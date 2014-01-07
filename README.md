@@ -1,4 +1,4 @@
 raphaelLineMark
 ===============
 
-When drawing some circles with the same center, maybe it is necessary to draw marks to indicate some info about the circles.How to show these marks in the correct position is a question.
+Draw a filledCircle as the center, and the center point is draggable on the paper;Then we draw four concentric circles.Sometimes it necessary to show the important info on the circles.How to show the info in correct position when you drag the center point to anywhere on the paper is the main Theme of this repository.
