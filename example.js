@@ -14,9 +14,9 @@ $(function() {
     //init raphael paper
     raphaelMark.init();
     //draW center at (500, 500)
-    raphaelMark.drawCenter(500, 500);
+    var centerPoint = raphaelMark.drawCenter(500, 250);
     //bind click
     $('#simulate').click(function() {
-        raphaelMark.drawConcentricCircles();
+        raphaelMark.drawConcentricCircles(centerPoint);
     });
 });

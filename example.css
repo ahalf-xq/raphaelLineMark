@@ -1,0 +1,23 @@
+#leftContainer{
+    float: left;
+    border: 1px solid #F4A460;
+    height: 500px;
+}
+
+#paper{
+    margin-left:260px;
+    height: 500px;
+    width: 1000px;
+    border: 1px solid #F4A460;
+}
+
+#colorSelector table{
+    width: 240px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+#btnContainer{
+    text-align: center;
+    margin-top: 50px;
+}

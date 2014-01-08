@@ -2,7 +2,7 @@ var raphaelMark = {
     paper: '',
     //init the raphael paper
     init: function() {
-        this.paper = Raphael('paper', 1000, 1000);
+        this.paper = Raphael('paper', 1000, 500);
         return this.paper;
     },
 
@@ -24,11 +24,8 @@ var raphaelMark = {
                 var cx1 = centerPoint.x + dx,
                     cy1 = centerPoint.y + dy;
 
-                if (popbox.showFlag) {
-                    popbox.hidePopbox();
-                }
                 //Make sure the centerPoint being dragged in the paper
-                if (cx1 <= 0 || cy1 <= 0 || cx1 >= 1000 || cy1 >= 1000) {
+                if (cx1 <= 0 || cy1 <= 0 || cx1 >= 1000 || cy1 >= 500) {
                     return;
                 }
                 this.attr({
@@ -47,15 +44,15 @@ var raphaelMark = {
 
     //draw concentric circles
     //Here, I use four assigned radius to draw four circles
-    drawConcentricCircles: function() {
+    drawConcentricCircles: function(centerPoint) {
         var colorSet = {},
-            centerX = hazard.deviceRaphael.attr('cx'),
-            centerY = hazard.deviceRaphael.attr('cy'),
+            centerX = centerPoint.attr('cx'),
+            centerY = centerPoint.attr('cy'),
             simulateRadius, marks = [];
-        colorSet.c1 = $('#c1').spectrum('get').toHexString();
-        colorSet.c2 = $('#c2').spectrum('get').toHexString();
-        colorSet.c3 = $('#c3').spectrum('get').toHexString();
-        colorSet.c4 = $('#c4').spectrum('get').toHexString();
+        colorSet.c1 = $('#cs1').spectrum('get').toHexString();
+        colorSet.c2 = $('#cs2').spectrum('get').toHexString();
+        colorSet.c3 = $('#cs3').spectrum('get').toHexString();
+        colorSet.c4 = $('#cs4').spectrum('get').toHexString();
         
         //circle1 radius=20
         simulateRadius = 20;
@@ -81,7 +78,7 @@ var raphaelMark = {
         //
         marks.push({
             'r': simulateRadius,
-            'info': acRecords.zsbj,
+            'info': 'c3',
             'c': colorSet.c3
         });
         //circle4 radius=80
@@ -90,7 +87,7 @@ var raphaelMark = {
         //
         marks.push({
             'r': simulateRadius,
-            'info': acRecords.swbj,
+            'info': 'c4',
             'c': colorSet.c4
         });
         
@@ -109,7 +106,7 @@ var raphaelMark = {
             //
             pointX = centerCor.x + radius * Math.cos(angle * (Math.PI / 180));
             pointY = centerCor.y - radius * Math.sin(angle * (Math.PI / 180));
-            if (pointX < 0 || pointX > 1000 || pointY < 0 || pointY > 1000) {
+            if (pointX < 0 || pointX > 1000 || pointY < 0 || pointY > 500) {
                 return true;
             }
             return false;
@@ -135,11 +132,11 @@ var raphaelMark = {
 
             lineRotateAngle = - curAngle;
 
-            simulationRaphael.push(mapRaphael.paper.path(path).attr({
+            raphaelMark.paper.path(path).attr({
                 'stroke': curMark.c,
                 'stroke-width': 1,
                 'arrow-end': 'open'
-            }).transform('r' + lineRotateAngle + ',' + centerCor.x + ',' + centerCor.y));
+            }).transform('r' + lineRotateAngle + ',' + centerCor.x + ',' + centerCor.y);
 
             // calc the position of text(info)
             if ((curAngle >= 0 && curAngle <= 90) || (curAngle >= 270 && curAngle <= 360)) {
@@ -152,11 +149,11 @@ var raphaelMark = {
                 textRotateAngle = 180 - curAngle;
             }
             
-            simulationRaphael.push(mapRaphael.paper.text(textCor.x, textCor.y,
+           raphaelMark.paper.text(textCor.x, textCor.y,
                 curMark.info).attr({
                     'stroke': curMark.c,
                     'font-weight': 0.5
-                }).transform('r' + textRotateAngle + ',' + centerCor.x + ',' + centerCor.y));
+                }).transform('r' + textRotateAngle + ',' + centerCor.x + ',' + centerCor.y);
         }
         //
         for (mark_i = 0 ; mark_i < marksLen ; mark_i++) {
